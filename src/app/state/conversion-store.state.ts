@@ -18,23 +18,31 @@ export class CurrencyConversionStore {
     return this.baseCurrencyConverting$.asObservable();
   }
 
-  isPopularCurrencyConverting$() {
+  isPopularCurrenciesConverting$() {
     return this.popularCurrencyConverting$.asObservable();
   }
 
-  setConvertedBaseCurrencyValue(currencyConvertedPair: ICurrencyConvertedPair) {
-    this.convertedBaseCurrencyValue$.next(currencyConvertedPair);
+  setBaseCurrencyConverting(isConverting: boolean) {
+    this.baseCurrencyConverting$.next(isConverting);
   }
 
-  getConvertedBaseCurrencyValue() {
-    return this.convertedBaseCurrencyValue$.asObservable();
+  setPopularCurrenciesConverting(isConverting: boolean) {
+    this.popularCurrencyConverting$.next(isConverting);
   }
 
   setConvertedPopularCurrencyValues(convertedPopularCurrencies: ICurrencyConvertedPair[]) {
     return this.convertedPopularCurrencyValues$.next(convertedPopularCurrencies);
   }
 
-  getConvertedPopularCurrencyValues() {
-    return this.popularCurrencyConverting$.asObservable();
+  setConvertedBaseCurrencyValue(currencyConvertedPair: ICurrencyConvertedPair) {
+    this.convertedBaseCurrencyValue$.next(currencyConvertedPair);
+  }
+
+  getConvertedBaseCurrencyValue$() {
+    return this.convertedBaseCurrencyValue$.asObservable();
+  }
+
+  getConvertedPopularCurrencyValues$() {
+    return this.convertedPopularCurrencyValues$.asObservable();
   }
 }
