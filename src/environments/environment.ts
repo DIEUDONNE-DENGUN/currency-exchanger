@@ -4,8 +4,12 @@
 
 export const environment = {
   production: false,
-  exchangeApiHost:"",
-  exchangeApiKey:"",
+  currencyExchangeApiHost: "https://data.fixer.io/api/",
+  currencyExchangeApiKey: "",
+  baseCurrencyPair: {
+    fromCurrencyCode: "EUR",
+    toCurrencyCode: "USD"
+  }
 };
 
 /*
