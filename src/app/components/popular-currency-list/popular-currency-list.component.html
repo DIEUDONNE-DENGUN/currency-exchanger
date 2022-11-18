@@ -1,0 +1,4 @@
+<div class="container-fluid row row-cols-3" *ngIf="convertedOtherPopularCurrenciesPair">
+  <app-popular-currency-item [convertedCurrencyPair]="convertedCurrency"
+                             *ngFor="let convertedCurrency of convertedOtherPopularCurrenciesPair"></app-popular-currency-item>
+</div>

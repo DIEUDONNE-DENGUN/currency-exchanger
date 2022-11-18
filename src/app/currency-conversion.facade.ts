@@ -89,13 +89,13 @@ export class CurrencyConversionFacade {
             //map the convertedValue to a DTO object
             const mappedResponse = this.currencyConversionMapper.convertApiResponseToConvertedPair(convertedValue);
             convertedPopularCurrenciesResponse.push(mappedResponse);
+            //stop the loading indicator
+            this.currencyConversionState.setPopularCurrenciesConverting(false);
+            //update the other popular converted currencies state with the converted values
+            this.currencyConversionState.setConvertedPopularCurrencyValues(convertedPopularCurrenciesResponse);
           }
         )
     });
-    //stop the loading indicator
-    this.currencyConversionState.setPopularCurrenciesConverting(false);
-    //update the other popular converted currencies state with the converted values
-    this.currencyConversionState.setConvertedPopularCurrencyValues(convertedPopularCurrenciesResponse);
   }
 
   /**

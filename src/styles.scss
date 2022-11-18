@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @mixin primary-color {
-  background-color: #212121;
+  background-color: #212121 !important;
 }
 
 @mixin secondary-color {
-  background-color: #263238;
+  background-color: #263238 !important;
 }
 
 .app-background-secondary-color {
@@ -17,7 +17,7 @@
 
 .app-button-main {
   background: #304ffe;
-  color:white;
+  color: white;
 }
 
 .body {
@@ -32,6 +32,7 @@
 .font-bold {
   font-weight: bold;
 }
+
 .convert-button-no-hover:hover {
   background-color: #304ffe !important;
   cursor: pointer;

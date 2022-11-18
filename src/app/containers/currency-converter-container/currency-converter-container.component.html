@@ -1,4 +1,4 @@
-<!--include the currency conversion form-->
+<!--include the currency conversion form and the result summary components-->
 <div class="container solid-white-border app-background-primary-color m-auto p-3 sticky-top">
   <!--  currency exchange form component-->
   <app-currency-converter-form [isConvertingState]="isConvertingFromCurrencyLoading"
@@ -14,11 +14,15 @@
     <div class="content-divider"></div>
     <app-loader [loaderMessage]="loadingConvertingMessage"></app-loader>
   </div>
-  <!--  loader for the -->
+</div>
+
+<div class="content-divider"></div>
+<!--include the 3x3 card for other 3 popular currencies conversion-->
+<div class="container solid-white-border app-background-primary-color m-auto p-3 sticky-top">
+  <!--  loader for converting other popular currencies -->
   <div class="m-auto text-center" *ngIf="isConvertingPopularCurrenciesLoading">
-    <div class="content-divider"></div>
     <app-loader [loaderMessage]="loadingPopularCurrenciesConvertingMessage"></app-loader>
   </div>
+  <app-popular-currency-list
+    [convertedOtherPopularCurrenciesPair]="convertedOtherPopularCurrenciesValues"></app-popular-currency-list>
 </div>
-<div class="content-divider"></div>
-

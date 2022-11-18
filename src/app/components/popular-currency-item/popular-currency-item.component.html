@@ -1,0 +1,7 @@
+<div class="card shadow-lg rounded-3 solid-white-border app-background-primary-color" *ngIf="convertedCurrencyPair">
+  <div class="card-body">
+    <h5 class="card-title text-white">{{convertedCurrencyPair.result}} {{convertedCurrencyPair.toCurrency}}</h5>
+    <p class="card-text text-white">1.00 {{convertedCurrencyPair.fromCurrency}}
+      = {{convertedCurrencyPair.rate}} {{convertedCurrencyPair.toCurrency}}</p>
+  </div>
+</div>
