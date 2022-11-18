@@ -1,18 +1,22 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {ICurrency} from "../../models/currency.interface";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-currency-converter-form',
   templateUrl: './currency-converter-form.component.html',
-  styleUrls: ['./currency-converter-form.component.scss']
+  styleUrls: ['./currency-converter-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CurrencyConverterFormComponent implements OnInit {
 
-  private readonly defaultCurrencyPair = environment.baseCurrencyPair;
-  @Input() currencies: ICurrency[] | undefined;
+  readonly defaultCurrencyPair = environment.baseCurrencyPair;
+  @Input() currencies$: Observable<ICurrency[]> | undefined;
+  @Input() isConvertingState: boolean | undefined;
   @Output() amountEnteredEvent = new EventEmitter<boolean>(false);
+  @Output() convertCurrencyEvent = new EventEmitter<{}>();
   fromCurrency = new FormControl();
   toCurrency = new FormControl();
   amount = new FormControl();
@@ -68,5 +72,16 @@ export class CurrencyConverterFormComponent implements OnInit {
       this.currencyFormGroup.get('fromCurrency')?.setValue(toCurrency);
       this.currencyFormGroup.get('toCurrency')?.setValue(fromCurrency);
     }
+  }
+
+  /**
+   * convert a given amount of currency to another
+   */
+  handleConvertCurrencyAmountEvent() {
+    //disable the convert button for the request to go through
+    const amount = this.currencyFormGroup.get('amount')?.value;
+    const fromCurrency = this.currencyFormGroup.get('fromCurrency')?.value;
+    const toCurrency = this.currencyFormGroup.get("toCurrency")?.value;
+    this.convertCurrencyEvent.emit({amount: amount, fromCurrency: fromCurrency, toCurrency: toCurrency});
   }
 }

@@ -11,8 +11,11 @@
         <div>
           <label class="form-label text-white">From</label>
           <select class="form-control" name="fromCurrency" formControlName="fromCurrency">
-            <option selected value="EUR">EUR</option>
-            <option selected value="USD">USD</option>
+            <option *ngFor="let currency of currencies$ | async" [id]="currency.name"
+                    [value]="currency.code"
+                    [attr.selected]="currency.code==defaultCurrencyPair.toCurrencyCode? true : null">
+              {{currency.code}}
+            </option>
           </select>
         </div>
       </div>
@@ -25,17 +28,23 @@
         <div>
           <label class="form-label text-white">To</label>
           <select class="form-control" formControlName="toCurrency" name="toCurrency">
-            <option selected value="USD">USD</option>
+            <option *ngFor="let currency of currencies$ | async" [id]="currency.name"
+                    [value]="currency.code"
+                    [attr.selected]="currency.code==defaultCurrencyPair.toCurrencyCode? true : null">
+              {{currency.code}}
+            </option>
             <option selected value="EUR">EUR</option>
           </select>
         </div>
       </div>
     </div>
     <div class=" row mt-5">
-          <div class="col-5"></div>
-          <div class="col d-grid gap-1">
-            <button [disabled]="hasEnteredAmount" type="submit" class="btn convert-button-no-hover app-button-main text-white font-bold">Convert</button>
-          </div>
-        </div>
+      <div class="col-5"></div>
+      <div class="col d-grid gap-1">
+        <button (click)="handleConvertCurrencyAmountEvent()" [disabled]="hasEnteredAmount || (isConvertingState)" type="submit"
+                class="btn convert-button-no-hover app-button-main text-white font-bold">Convert
+        </button>
+      </div>
+    </div>
   </form>
 </div>

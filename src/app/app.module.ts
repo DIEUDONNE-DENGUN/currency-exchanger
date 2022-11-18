@@ -15,6 +15,8 @@ import {HomeContainerComponent} from './containers/home-container/home-container
 import {CurrencyConverterContainerComponent} from './containers/currency-converter-container/currency-converter-container.component';
 import {CurrencyConverterFormComponent} from './components/currency-converter-form/currency-converter-form.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { LoaderComponent } from './shared/components/loader/loader.component';
+import { CurrencyConversionSummaryComponent } from './components/currency-conversion-summary/currency-conversion-summary.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     FooterComponent,
     HomeContainerComponent,
     CurrencyConverterContainerComponent,
-    CurrencyConverterFormComponent
+    CurrencyConverterFormComponent,
+    LoaderComponent,
+    CurrencyConversionSummaryComponent
   ],
   imports: [
     BrowserModule,

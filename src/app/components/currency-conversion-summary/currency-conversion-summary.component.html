@@ -1,0 +1,18 @@
+<div class="container-fluid text-center mt-3 pt-2" *ngIf="convertedCurrencyPair">
+  <div class="row">
+    <div class="col">
+      <p class="solid-white-border app-background-secondary-color text-white mt-2 p-1">1.00 {{convertedCurrencyPair.fromCurrency}}
+        ={{convertedCurrencyPair.rate}} {{convertedCurrencyPair.toCurrency}}</p>
+    </div>
+    <div class="col">
+      <div class="solid-white-border p-3 app-background-secondary-color text-white">
+        {{convertedCurrencyPair.result}} {{convertedCurrencyPair.toCurrency}}
+      </div>
+    </div>
+    <div class="col">
+      <button (click)="showConvertedCurrencyDetail()"
+              class="btn convert-button-no-hover app-button-main text-white font-bold">More Details
+      </button>
+    </div>
+  </div>
+</div>

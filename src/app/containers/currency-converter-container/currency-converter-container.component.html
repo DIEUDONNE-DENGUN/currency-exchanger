@@ -1,6 +1,24 @@
 <!--include the currency conversion form-->
-<div class="container solid-white-border app-background-primary-color m-auto p-3">
-  <app-currency-converter-form (amountEnteredEvent)="handleEnteredAmountEvent($event)"></app-currency-converter-form>
+<div class="container solid-white-border app-background-primary-color m-auto p-3 sticky-top">
+  <!--  currency exchange form component-->
+  <app-currency-converter-form [isConvertingState]="isConvertingFromCurrencyLoading"
+                               (convertCurrencyEvent)="convertCurrencyAmount($event)" [currencies$]="currencyList"
+                               (amountEnteredEvent)="handleEnteredAmountEvent($event)"></app-currency-converter-form>
+  <!--  converted currency brief summary component-->
+  <app-currency-conversion-summary *ngIf="!isConvertingFromCurrencyLoading"
+                                   [convertedCurrencyPair]="convertedBaseCurrencyValue"
+                                   (viewConvertedCurrentPairDetailEvent)="loadCurrencyPairDetail($event)">
+  </app-currency-conversion-summary>
+  <!--  loader when conversion is happening-->
+  <div class="m-auto text-center" *ngIf="isConvertingFromCurrencyLoading">
+    <div class="content-divider"></div>
+    <app-loader [loaderMessage]="loadingConvertingMessage"></app-loader>
+  </div>
+  <!--  loader for the -->
+  <div class="m-auto text-center" *ngIf="isConvertingPopularCurrenciesLoading">
+    <div class="content-divider"></div>
+    <app-loader [loaderMessage]="loadingPopularCurrenciesConvertingMessage"></app-loader>
+  </div>
 </div>
 <div class="content-divider"></div>
 

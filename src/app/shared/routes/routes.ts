@@ -1,3 +1,3 @@
 export const Routes = {
-  conversionApiUrl: ""
+  conversionApiUrl: "convert"
 }

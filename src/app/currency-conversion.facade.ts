@@ -34,21 +34,41 @@ export class CurrencyConversionFacade {
     //set the converting state to converting to start the loader
     this.currencyConversionState.setBaseCurrencyConverting(true);
     //convert the entered amount using the api
+    // @ts-ignore
     this.conversionApi.convertFromCurrencyToAnother(amount, fromCurrencyCode, toCurrencyCode)
       .subscribe(
-        (convertedCurrency) => this.updateConvertedFromCurrencyState(convertedCurrency),
+        (convertedCurrency) => this.updateConvertedFromCurrencyState(convertedCurrency, amount),
         (error) => console.error(error),
       );
   }
 
   //map and store the converted fromCurrency to are
-  updateConvertedFromCurrencyState(response: IConversionCurrencyResponse) {
+  updateConvertedFromCurrencyState(response: IConversionCurrencyResponse, amount: number) {
     //convert the api response to format to be store in the state
     const mappedResponse = this.currencyConversionMapper.convertApiResponseToConvertedPair(response);
+    console.log(mappedResponse);
     //stop converting base currency the loader at this point
     this.currencyConversionState.setBaseCurrencyConverting(false);
     //update the converted base currency state value
     this.currencyConversionState.setConvertedBaseCurrencyValue(mappedResponse);
+    //run the converison of the entered amount to the 9 other popular currencies
+    this.convertFromCurrencyAmountToPopularCurrencies(mappedResponse, amount)
+  }
+
+  convertFromCurrencyAmountToPopularCurrencies(convertedBaseCurrencyResponse: ICurrencyConvertedPair, amount: number) {
+    //get other popular currencies away from the selected fromCurrency value
+    const enteredFromCurrencyValue = convertedBaseCurrencyResponse.fromCurrency;
+    let otherPopularCurrencies: string[] = [];
+    //filter the entered fromCurrency from the list and map the data to list of currencies code
+    this.getCurrencies().subscribe((currencies) => {
+      otherPopularCurrencies = currencies.filter((currency) => {
+        return currency.code !== enteredFromCurrencyValue
+      }).map((currency) => {
+        return currency.code
+      });
+    });
+    //run the convert other popular api conversion task
+    this.bulkConvertFromCurrencyToPopularCurrencies(amount, enteredFromCurrencyValue, otherPopularCurrencies);
   }
 
   /**
@@ -62,6 +82,7 @@ export class CurrencyConversionFacade {
     //loop through the other currencies and perform a fromCurrency to the other currency
     otherCurrencies.forEach(otherCurrency => {
       //call the exchange currency conversion api
+      // @ts-ignore
       this.conversionApi.convertFromCurrencyToAnother(amount, fromCountry, otherCurrency)
         .subscribe(
           (convertedValue) => {

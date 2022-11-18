@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {IConversionCurrencyResponse} from "../models/conversion-currency.interface";
 
 
@@ -19,7 +19,7 @@ export class CacheCurrencyConversionService {
     return currencyPairAsKey in this.currencyConversionPairCache;
   }
 
-  getConversionCurrencyPairFromCache(fromCurrency: string, toCurrency: string): Observable<IConversionCurrencyResponse> {
+  getConversionCurrencyPairFromCache(fromCurrency: string, toCurrency: string, amount: number): Observable<IConversionCurrencyResponse> {
     const currencyPairAsKey = fromCurrency + "_" + toCurrency;
     // @ts-ignore
     return (currencyPairAsKey in this.currencyConversionPairCache) ? this.currencyConversionPairCache[currencyPairAsKey] : null;
@@ -27,7 +27,8 @@ export class CacheCurrencyConversionService {
 
   setConversionCurrencyPairToCache(response: IConversionCurrencyResponse, fromCurrency: string, toCurrency: string) {
     const currencyPairAsKey = fromCurrency + "_" + toCurrency;
+    console.log(of(response));
     // @ts-ignore
-    this.currencyConversionPairCache[currencyPairAsKey] = response;
+    this.currencyConversionPairCache[currencyPairAsKey] = of(response);
   }
 }

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  currencyExchangeApiHost: "https://data.fixer.io/api/",
-  currencyExchangeApiKey: "",
+  // currencyExchangeApiHost: "https://data.fixer.io/api/",
+  currencyExchangeApiHost: "https://api.apilayer.com/fixer",
+  currencyExchangeApiKey: "U1YBZs9F6QVdwd04wekC7VpmyvfkVV0V",
   baseCurrencyPair: {
     fromCurrencyCode: "EUR",
     toCurrencyCode: "USD"
