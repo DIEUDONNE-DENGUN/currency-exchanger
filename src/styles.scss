@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+@mixin primary-color {
+  background-color: #212121;
+}
+
+@mixin secondary-color {
+  background-color: #263238;
+}
+
+.app-background-secondary-color {
+  @include secondary-color
+}
+
+.app-background-primary-color {
+  @include primary-color
+}
+
+.app-button-main {
+  background: #304ffe;
+  color:white;
+}
+
+.body {
+  @include secondary-color;
+}
+
+.solid-white-border {
+  border: white 1px solid;
+  border-radius: 2px;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.content-divider {
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-top-width: medium;
+  border-right-width: medium;
+  border-bottom-width: medium;
+  border-left-width: medium;
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}

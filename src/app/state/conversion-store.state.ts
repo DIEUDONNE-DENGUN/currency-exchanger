@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 import {ICurrencyConvertedPair} from "../models/currency-converted-pair.interface";
 
-
 @Injectable({providedIn: 'root'})
 
 export class CurrencyConversionStore {

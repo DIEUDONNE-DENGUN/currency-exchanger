@@ -1,0 +1,8 @@
+<!--include application sticky header-->
+<app-header [isCurrencyAmountEntered]="isAmountEntered"></app-header>
+<!--<div class="content-divider"></div>-->
+<!--include the currency converter main container-->
+<app-currency-converter-container (isAmountValid)="handleAmountEnteringStatus($event)"></app-currency-converter-container>
+<!--<div class="content-divider"></div>-->
+<!--include application footer-->
+<app-footer></app-footer>

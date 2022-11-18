@@ -1,0 +1,25 @@
+<header class="shadow-lg mb-auto">
+  <nav class="navbar navbar-expand-md solid-white-border fixed-top app-background-primary-color">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="../../../../assets/logo.JPG" width="50px" height="50px" alt="Currency Converter Logo"/>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav me-auto mb-2 mb-md-0"></div>
+        <form class="d-flex">
+          <button [disabled]="!isCurrencyAmountEntered" class="btn btn-outline-light  mx-2" type="submit">EUR-USD
+            Details
+          </button>
+          <button [disabled]="!isCurrencyAmountEntered" class="btn btn-outline-light mx-2" type="submit">EUR-GBP
+            Details
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+</header>
+<br/><br/><br/><br/>

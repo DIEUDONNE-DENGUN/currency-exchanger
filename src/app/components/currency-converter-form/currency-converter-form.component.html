@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <form class="row" [formGroup]="currencyFormGroup">
+    <div class="row">
+      <div class="col">
+        <div>
+          <label class="form-label text-white">Amount</label>
+          <input name="amount" formControlName="amount" type="number" class="form-control" placeholder="25" required>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <label class="form-label text-white">From</label>
+          <select class="form-control" name="fromCurrency" formControlName="fromCurrency">
+            <option selected value="EUR">EUR</option>
+            <option selected value="USD">USD</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-1">
+        <div class="mt-lg-2" (click)="swapCurrency()">
+          <img class="arrow rounded" src="assets/arrow.jpeg" alt="swap icon"/>
+        </div>
+      </div>
+      <div class="col">
+        <div>
+          <label class="form-label text-white">To</label>
+          <select class="form-control" formControlName="toCurrency" name="toCurrency">
+            <option selected value="USD">USD</option>
+            <option selected value="EUR">EUR</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class=" row mt-5">
+          <div class="col-5"></div>
+          <div class="col d-grid gap-1">
+            <button [disabled]="hasEnteredAmount" type="submit" class="btn convert-button-no-hover app-button-main text-white font-bold">Convert</button>
+          </div>
+        </div>
+  </form>
+</div>
