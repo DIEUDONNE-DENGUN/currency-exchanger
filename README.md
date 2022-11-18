@@ -7,7 +7,7 @@
 
 ### Getting Started
     Currency Exchanger is an angular web based application which helps seamlessly to convert currencies from one to another using an exchanger api service(Fixer Api)
-    The application design makes lots of use of domain driven design in structure, smart and dumble architectural pattern, SOLID principles and leverage lots of dependency injection.
+    The application design makes lots of use of domain driven design in structure, smart and dumb architectural pattern (feature-presentation architecturce), SOLID principles and leverage lots of dependency injection.
     Communication with the FIxer API  RESTFUL exchange endpoint  is achieved using an authorization bearer security key exchange
 
 ### Installation Dependencies
