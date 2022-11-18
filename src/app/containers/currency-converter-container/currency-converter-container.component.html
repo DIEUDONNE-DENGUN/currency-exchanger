@@ -1,11 +1,16 @@
 <!--include the currency conversion form and the result summary components-->
 <div class="container solid-white-border app-background-primary-color m-auto p-3 sticky-top">
+  <!--  load dynamic toolbar for the application by title -->
+  <app-currency-title-bar [toolBarTitle]="toolBarTitle" [isDetailsPage]="isDetailPageComponent"
+                          (returnToHomePageEvent)="handleReturnToHomeEvent($event)"></app-currency-title-bar>
   <!--  currency exchange form component-->
   <app-currency-converter-form [isConvertingState]="isConvertingFromCurrencyLoading"
+                               [isDetailsPage]="isDetailPageComponent"
                                (convertCurrencyEvent)="convertCurrencyAmount($event)" [currencies$]="currencyList"
                                (amountEnteredEvent)="handleEnteredAmountEvent($event)"></app-currency-converter-form>
   <!--  converted currency brief summary component-->
   <app-currency-conversion-summary *ngIf="!isConvertingFromCurrencyLoading"
+                                   [isDetailsPage]="isDetailPageComponent"
                                    [convertedCurrencyPair]="convertedBaseCurrencyValue"
                                    (viewConvertedCurrentPairDetailEvent)="loadCurrencyPairDetail($event)">
   </app-currency-conversion-summary>
@@ -23,6 +28,10 @@
   <div class="m-auto text-center" *ngIf="isConvertingPopularCurrenciesLoading">
     <app-loader [loaderMessage]="loadingPopularCurrenciesConvertingMessage"></app-loader>
   </div>
+  <!--  show popular currencies list conversion component-->
   <app-popular-currency-list
+    *ngIf="!isDetailPageComponent"
     [convertedOtherPopularCurrenciesPair]="convertedOtherPopularCurrenciesValues"></app-popular-currency-list>
+  <!--  show historical chart for past conversions-->
+  <app-currency-historical-chart *ngIf="isDetailPageComponent"></app-currency-historical-chart>
 </div>

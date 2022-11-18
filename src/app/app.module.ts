@@ -19,6 +19,8 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
 import { CurrencyConversionSummaryComponent } from './components/currency-conversion-summary/currency-conversion-summary.component';
 import { PopularCurrencyListComponent } from './components/popular-currency-list/popular-currency-list.component';
 import { PopularCurrencyItemComponent } from './components/popular-currency-item/popular-currency-item.component';
+import { CurrencyTitleBarComponent } from './components/currency-title-bar/currency-title-bar.component';
+import { CurrencyHistoricalChartComponent } from './components/currency-historical-chart/currency-historical-chart.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { PopularCurrencyItemComponent } from './components/popular-currency-item
     LoaderComponent,
     CurrencyConversionSummaryComponent,
     PopularCurrencyListComponent,
-    PopularCurrencyItemComponent
+    PopularCurrencyItemComponent,
+    CurrencyTitleBarComponent,
+    CurrencyHistoricalChartComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+<div class="container-fluid mb-2">
+  <div class="row row-cols-3">
+    <div class="col text-capitalize text-white font-bold">
+      <h4 class="header-title">{{toolBarTitle}}</h4>
+    </div>
+    <div class="col"></div>
+    <div class="col" *ngIf="isDetailsPage">
+      <button (click)="returnToHome()"
+              class="btn convert-button-no-hover app-button-main text-white font-bold">
+        Back to Home
+      </button>
+    </div>
+  </div>
+</div>
+

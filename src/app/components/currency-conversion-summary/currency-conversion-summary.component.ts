@@ -9,6 +9,7 @@ import {ICurrencyConvertedPair} from "../../models/currency-converted-pair.inter
 export class CurrencyConversionSummaryComponent implements OnInit {
 
   @Input() convertedCurrencyPair: ICurrencyConvertedPair | undefined;
+  @Input() isDetailsPage: boolean | undefined;
   @Output() viewConvertedCurrentPairDetailEvent= new EventEmitter<boolean>(false);
 
   constructor() {

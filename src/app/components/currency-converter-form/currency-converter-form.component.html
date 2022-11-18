@@ -13,6 +13,7 @@
           <select class="form-control" name="fromCurrency" formControlName="fromCurrency">
             <option *ngFor="let currency of currencies$ | async" [id]="currency.name"
                     [value]="currency.code"
+                    [disabled]="isDetailsPage"
                     [attr.selected]="currency.code==defaultCurrencyPair.toCurrencyCode? true : null">
               {{currency.code}}
             </option>
@@ -41,7 +42,8 @@
     <div class=" row mt-5">
       <div class="col-5"></div>
       <div class="col d-grid gap-1">
-        <button (click)="handleConvertCurrencyAmountEvent()" [disabled]="hasEnteredAmount || (isConvertingState)" type="submit"
+        <button (click)="handleConvertCurrencyAmountEvent()" [disabled]="hasEnteredAmount || (isConvertingState)"
+                type="submit"
                 class="btn convert-button-no-hover app-button-main text-white font-bold">Convert
         </button>
       </div>

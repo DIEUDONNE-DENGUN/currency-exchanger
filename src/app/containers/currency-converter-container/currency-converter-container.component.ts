@@ -20,6 +20,8 @@ export class CurrencyConverterContainerComponent implements OnInit {
   convertedOtherPopularCurrenciesValues: ICurrencyConvertedPair[] | undefined;
   loadingConvertingMessage: string = "Converting currency pair using api exchange";
   loadingPopularCurrenciesConvertingMessage: string = "Converting to other popular currencies for entered amount";
+  toolBarTitle: string = "Currency Exchanger";
+  isDetailPageComponent: boolean = false;
 
   constructor(private readonly currencyConversionFacade: CurrencyConversionFacade) {
   }
@@ -51,8 +53,6 @@ export class CurrencyConverterContainerComponent implements OnInit {
   listenConvertingOtherPopularCurrenciesValueChanged() {
     this.currencyConversionFacade.isPopularCurrenciesConverting().subscribe((state) => {
       this.isConvertingPopularCurrenciesLoading = state;
-      console.log("converting popular data status:");
-      console.log(state);
     });
   }
 
@@ -67,7 +67,6 @@ export class CurrencyConverterContainerComponent implements OnInit {
         convertedCurrencies.forEach(currency => {
           convertedOtherCurrencies.push(this.formatConvertedCurrency(currency));
         });
-        console.log(convertedOtherCurrencies);
         this.convertedOtherPopularCurrenciesValues = convertedOtherCurrencies;
       }
     });
@@ -91,6 +90,24 @@ export class CurrencyConverterContainerComponent implements OnInit {
   }
 
   loadCurrencyPairDetail($event: boolean) {
-    // if($event)
+    if ($event) {
+      //set the tool bar title to reflect the current fromCurrency
+      const fromCurrency = this.convertedBaseCurrencyValue?.fromCurrency;
+      //get its full name from the loaded currencies
+      this.currencyList?.subscribe((currencies) => {
+        const selectedFromCurrencyName = currencies.filter((currency) => currency.code == fromCurrency)[0].name;
+        this.toolBarTitle = fromCurrency + " - " + selectedFromCurrencyName;
+        this.isDetailPageComponent = true;
+      });
+    }
+  }
+
+  handleReturnToHomeEvent($event: boolean) {
+    console.log($event);
+    if ($event) {
+      //activate component elements that were disabled when loading detail view
+      this.isDetailPageComponent = false;
+      this.toolBarTitle = "Currency Exchanger";
+    }
   }
 }

@@ -16,6 +16,8 @@ export class CurrencyConverterFormComponent implements OnInit {
   @Input() currencies$: Observable<ICurrency[]> | undefined;
   @Input() isConvertingState: boolean | undefined;
   @Output() amountEnteredEvent = new EventEmitter<boolean>(false);
+  // @ts-ignore
+  @Input() isDetailsPage: boolean;
   @Output() convertCurrencyEvent = new EventEmitter<{}>();
   fromCurrency = new FormControl();
   toCurrency = new FormControl();
