@@ -51,7 +51,7 @@ export class CurrencyConversionFacade {
     //update the converted base currency state value
     this.currencyConversionState.setConvertedBaseCurrencyValue(mappedResponse);
     //run the conversion of the entered amount to the 9 other popular currencies
-    // this.convertFromCurrencyAmountToPopularCurrencies(mappedResponse, amount)
+    this.convertFromCurrencyAmountToPopularCurrencies(mappedResponse, amount)
   }
 
   convertFromCurrencyAmountToPopularCurrencies(convertedBaseCurrencyResponse: ICurrencyConvertedPair, amount: number) {
