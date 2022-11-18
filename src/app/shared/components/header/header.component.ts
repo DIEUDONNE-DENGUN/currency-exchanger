@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Input() isCurrencyAmountEntered: boolean | undefined;
+  @Output() convertCurrencyPairHeaderEvent = new EventEmitter<{}>();
 
   constructor() {
   }
@@ -14,4 +15,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //send the click event to the parent component to do the conversion
+  convertCurrencyPair(fromCurrency: string, toCurrency: string) {
+    this.convertCurrencyPairHeaderEvent.emit({fromCurrency: fromCurrency, toCurrency: toCurrency});
+  }
 }

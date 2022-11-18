@@ -46,12 +46,11 @@ export class CurrencyConversionFacade {
   updateConvertedFromCurrencyState(response: IConversionCurrencyResponse, amount: number) {
     //convert the api response to format to be store in the state
     const mappedResponse = this.currencyConversionMapper.convertApiResponseToConvertedPair(response);
-    console.log(mappedResponse);
     //stop converting base currency the loader at this point
     this.currencyConversionState.setBaseCurrencyConverting(false);
     //update the converted base currency state value
     this.currencyConversionState.setConvertedBaseCurrencyValue(mappedResponse);
-    //run the converison of the entered amount to the 9 other popular currencies
+    //run the conversion of the entered amount to the 9 other popular currencies
     // this.convertFromCurrencyAmountToPopularCurrencies(mappedResponse, amount)
   }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CurrencyConversionFacade} from "../../currency-conversion.facade";
 import {ICurrency} from "../../models/currency.interface";
 import {Observable} from "rxjs";
@@ -13,6 +13,7 @@ import {ICurrencyConvertedPair} from "../../models/currency-converted-pair.inter
 export class CurrencyConverterContainerComponent implements OnInit {
 
   @Output() isAmountValid = new EventEmitter<boolean>(false);
+  @Input() convertCurrentPairHeader: {} | undefined;
   currencyList: Observable<ICurrency[]> | undefined;
   isConvertingFromCurrencyLoading: boolean | undefined;
   isConvertingPopularCurrenciesLoading: boolean | undefined;
@@ -22,8 +23,25 @@ export class CurrencyConverterContainerComponent implements OnInit {
   loadingPopularCurrenciesConvertingMessage: string = "Converting to other popular currencies for entered amount";
   toolBarTitle: string = "Currency Exchanger";
   isDetailPageComponent: boolean = false;
+  currencyAmountEntered: number | undefined;
 
   constructor(private readonly currencyConversionFacade: CurrencyConversionFacade) {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    //handle change event for the clicked converison from header
+    const currencyPair = changes['convertCurrentPairHeader'];
+    if (currencyPair && currencyPair.currentValue) {
+      if (this.currencyAmountEntered) {
+        let currencyPairValue = currencyPair.currentValue;
+        currencyPairValue.amount = this.currencyAmountEntered;
+        //call the conversion service to handle the rest
+        this.convertCurrencyAmount(currencyPairValue);
+        //after converting , open the detail page
+        this.loadCurrencyPairDetail(true);
+        // this.isDetailPageComponent = true;
+      }
+    }
   }
 
   ngOnInit(): void {
@@ -86,6 +104,7 @@ export class CurrencyConverterContainerComponent implements OnInit {
   }
 
   convertCurrencyAmount($event: any) {
+    this.currencyAmountEntered = $event.amount;
     this.currencyConversionFacade.convertFromCurrencyToCurrency($event.amount, $event.fromCurrency, $event.toCurrency)
   }
 

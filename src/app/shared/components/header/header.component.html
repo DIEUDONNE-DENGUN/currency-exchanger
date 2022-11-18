@@ -11,10 +11,12 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav me-auto mb-2 mb-md-0"></div>
         <form class="d-flex">
-          <button [disabled]="!isCurrencyAmountEntered" class="btn btn-outline-light  mx-2" type="submit">EUR-USD
+          <button [disabled]="!isCurrencyAmountEntered" (click)="convertCurrencyPair('EUR','USD')"
+                  class="btn btn-outline-light  mx-2" type="submit">EUR-USD
             Details
           </button>
-          <button [disabled]="!isCurrencyAmountEntered" class="btn btn-outline-light mx-2" type="submit">EUR-GBP
+          <button [disabled]="!isCurrencyAmountEntered" (click)="convertCurrencyPair('EUR','GBP')"
+                  class="btn btn-outline-light mx-2" type="submit">EUR-GBP
             Details
           </button>
         </form>

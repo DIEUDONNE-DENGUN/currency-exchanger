@@ -7,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeContainerComponent implements OnInit {
   isAmountEntered: boolean = false;
+  convertCurrencyPair: {} = {};
 
   constructor() {
   }
@@ -17,5 +18,11 @@ export class HomeContainerComponent implements OnInit {
   //send the data to header component to determine the enable status of its buttons
   handleAmountEnteringStatus($event: boolean) {
     this.isAmountEntered = $event;
+  }
+
+  //handle the sent currency pair from the header component
+  handleConvertCurrencyPairEvent($event:{}) {
+    console.log($event);
+    this.convertCurrencyPair = $event;
   }
 }

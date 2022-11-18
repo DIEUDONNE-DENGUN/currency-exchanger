@@ -1,8 +1,11 @@
 <!--include application sticky header-->
-<app-header [isCurrencyAmountEntered]="isAmountEntered"></app-header>
+<app-header [isCurrencyAmountEntered]="isAmountEntered"
+            (convertCurrencyPairHeaderEvent)="handleConvertCurrencyPairEvent($event)"></app-header>
 <!--<div class="content-divider"></div>-->
 <!--include the currency converter main container-->
-<app-currency-converter-container (isAmountValid)="handleAmountEnteringStatus($event)"></app-currency-converter-container>
+<app-currency-converter-container
+  [convertCurrentPairHeader]="convertCurrencyPair"
+  (isAmountValid)="handleAmountEnteringStatus($event)"></app-currency-converter-container>
 <!--<div class="content-divider"></div>-->
 <!--include application footer-->
 <app-footer></app-footer>
