@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-currency-title-bar',
   templateUrl: './currency-title-bar.component.html',
-  styleUrls: ['./currency-title-bar.component.scss']
+  styleUrls: ['./currency-title-bar.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CurrencyTitleBarComponent implements OnInit {
   @Input() toolBarTitle: string | undefined;

@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ICurrencyConvertedPair} from "../../models/currency-converted-pair.interface";
 
 @Component({
   selector: 'app-currency-conversion-summary',
   templateUrl: './currency-conversion-summary.component.html',
-  styleUrls: ['./currency-conversion-summary.component.scss']
+  styleUrls: ['./currency-conversion-summary.component.scss'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class CurrencyConversionSummaryComponent implements OnInit {
 
