@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CurrencyConversionFacade} from "../../currency-conversion.facade";
 import {ICurrency} from "../../models/currency.interface";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ICurrencyConvertedPair} from "../../models/currency-converted-pair.interface";
 
 
@@ -10,7 +10,7 @@ import {ICurrencyConvertedPair} from "../../models/currency-converted-pair.inter
   templateUrl: './currency-converter-container.component.html',
   styleUrls: ['./currency-converter-container.component.scss']
 })
-export class CurrencyConverterContainerComponent implements OnInit {
+export class CurrencyConverterContainerComponent implements OnInit, OnDestroy {
 
   @Output() isAmountValid = new EventEmitter<boolean>(false);
   @Input() convertCurrentPairHeader: {} | undefined;
@@ -24,6 +24,7 @@ export class CurrencyConverterContainerComponent implements OnInit {
   toolBarTitle: string = "Currency Exchanger";
   isDetailPageComponent: boolean = false;
   currencyAmountEntered: number | undefined;
+  subscriptions: Subscription[] | undefined;
 
   constructor(private readonly currencyConversionFacade: CurrencyConversionFacade) {
   }
@@ -54,31 +55,34 @@ export class CurrencyConverterContainerComponent implements OnInit {
   }
 
   listenConvertingCurrencyChanged() {
-    this.currencyConversionFacade.isBaseCurrencyConverting().subscribe((state) => {
+    const currencyBaseConvertingSubscription = this.currencyConversionFacade.isBaseCurrencyConverting().subscribe((state) => {
       this.isConvertingFromCurrencyLoading = state;
     });
+    this.subscriptions = this.subscriptions?.concat(currencyBaseConvertingSubscription);
   }
 
   listConvertedBaseCurrencyValue() {
-    this.currencyConversionFacade.getConvertedFromCurrency().subscribe((convertCurrency) => {
+    const convertedBaseCurrencyValueSubscription = this.currencyConversionFacade.getConvertedFromCurrency().subscribe((convertCurrency) => {
       if (convertCurrency) {
         //send the converted value to the currency summary component
         this.convertedBaseCurrencyValue = this.formatConvertedCurrency(convertCurrency);
       }
     });
+    this.subscriptions = this.subscriptions?.concat(convertedBaseCurrencyValueSubscription);
   }
 
   listenConvertingOtherPopularCurrenciesValueChanged() {
-    this.currencyConversionFacade.isPopularCurrenciesConverting().subscribe((state) => {
+    const convertingOtherPopularCurrenciesValueChangedSubscription = this.currencyConversionFacade.isPopularCurrenciesConverting().subscribe((state) => {
       this.isConvertingPopularCurrenciesLoading = state;
     });
+    this.subscriptions = this.subscriptions?.concat(convertingOtherPopularCurrenciesValueChangedSubscription);
   }
 
   /**
    * Listen to observable value changed for the converted api popular currencies for the entered amount and fromCurrency
    */
   listConvertedOtherPopularCurrenciesValue() {
-    this.currencyConversionFacade.getConvertedPopularCurrencies().subscribe((convertedCurrencies) => {
+    const convertedOtherPopularCurrenciesValueSubscription = this.currencyConversionFacade.getConvertedPopularCurrencies().subscribe((convertedCurrencies) => {
       if (convertedCurrencies) {
         //for all the currencies results, format to 2 decimal places\
         let convertedOtherCurrencies: ICurrencyConvertedPair[] = [];
@@ -88,6 +92,7 @@ export class CurrencyConverterContainerComponent implements OnInit {
         this.convertedOtherPopularCurrenciesValues = convertedOtherCurrencies;
       }
     });
+    this.subscriptions = this.subscriptions?.concat(convertedOtherPopularCurrenciesValueSubscription);
   }
 
   formatConvertedCurrency(currencyResponse: ICurrencyConvertedPair): ICurrencyConvertedPair {
@@ -129,4 +134,12 @@ export class CurrencyConverterContainerComponent implements OnInit {
       this.toolBarTitle = "Currency Exchanger";
     }
   }
+
+  //unsubscribe all subscriptions
+  ngOnDestroy(): void {
+    this.subscriptions?.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+  }
+
 }
