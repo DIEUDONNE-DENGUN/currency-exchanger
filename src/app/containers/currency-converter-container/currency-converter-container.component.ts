@@ -127,7 +127,6 @@ export class CurrencyConverterContainerComponent implements OnInit, OnDestroy {
   }
 
   handleReturnToHomeEvent($event: boolean) {
-    console.log($event);
     if ($event) {
       //activate component elements that were disabled when loading detail view
       this.isDetailPageComponent = false;

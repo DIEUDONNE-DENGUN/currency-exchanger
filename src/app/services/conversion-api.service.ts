@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {ICurrency} from "../models/currency.interface";
 import {currencies} from "../shared/data/currencies.";
 import {Observable, of, tap} from "rxjs";
@@ -15,7 +15,6 @@ export class ConversionApiService {
   private readonly popularCurrencies = currencies;
   private readonly routes = Routes;
   private readonly apiHostUrl = environment.currencyExchangeApiHost
-  private readonly apiClientKey = environment.currencyExchangeApiKey;
 
   constructor(private readonly httpClient: HttpClient,
               private readonly cacheService: CacheCurrencyConversionService) {
@@ -31,9 +30,7 @@ export class ConversionApiService {
     //if doesn't exist in cache, get from the api exchange service directly and set the cache with this new value
     const conversionEndpoint = `${this.apiHostUrl}/${this.routes.conversionApiUrl}`;
     const requestParams = this.buildRequestParams(fromCurrencyCode, toCurrencyCode, amount);
-    let httpHeaders = new HttpHeaders().set('apiKey', this.apiClientKey);
     return this.httpClient.get<IConversionCurrencyResponse>(conversionEndpoint, {
-      headers: httpHeaders,
       params: requestParams
     })
       .pipe(tap(convertedValue => this.cacheService.setConversionCurrencyPairToCache(convertedValue, fromCurrencyCode, toCurrencyCode)));
